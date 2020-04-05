@@ -2,7 +2,7 @@
     "name": "wc4bcraftsibcontactform/craft-sib-contact-form",
     "description": "A contact form integration for the Send in Blue API",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "keywords": [
         "craft",
         "cms",
@@ -22,7 +22,9 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC1"
+        "craftcms/cms": "^3.0.0-RC1",
+        "sendinblue/api-v3-sdk": "^6.1.0"
+
     },
     "autoload": {
         "psr-4": {
