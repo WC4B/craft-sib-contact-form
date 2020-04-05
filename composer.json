@@ -1,0 +1,44 @@
+{
+    "name": "wc4bcraftsibcontactform/craft-sib-contact-form",
+    "description": "A contact form integration for the Send in Blue API",
+    "type": "craft-plugin",
+    "version": "1.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "craft-sib-contact-form"
+    ],
+    "support": {
+        "docs": "https://github.com/craft-sib-contact-form/craft-sib-contact-form/blob/master/README.md",
+        "issues": "https://github.com/craft-sib-contact-form/craft-sib-contact-form/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joel Beer",
+            "homepage": "https://github.com/WC4B/craft-sib-contact-form"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+            "wc4bcraftsibcontactform\\craftsibcontactform\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "craft-sib-contact-form",
+        "handle": "craft-sib-contact-form",
+        "developer": "Joel Beer",
+        "developerUrl": "https://github.com/WC4B/craft-sib-contact-form",
+        "documentationUrl": "https://github.com/craft-sib-contact-form/craft-sib-contact-form/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/craft-sib-contact-form/craft-sib-contact-form/master/CHANGELOG.md",
+        "class": "wc4bcraftsibcontactform\\craftsibcontactform\\Craftsibcontactform",
+        "components": {
+            "mailer": "wc4bcraftsibcontactform\\craftsibcontactform\\Mailer"
+        }
+    }
+}
