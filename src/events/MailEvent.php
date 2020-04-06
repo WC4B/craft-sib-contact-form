@@ -11,7 +11,7 @@ use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
 use craft\mail\Message;
 use yii\base\Event;
 
-class SendEvent extends Event
+class MailEvent extends Event
 {
     /**
      * @var Submission The user submission.

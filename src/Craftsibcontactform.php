@@ -165,6 +165,15 @@ class Craftsibcontactform extends Plugin
     }
     
 
+    /**
+     * @return Subscriber
+     */
+    public function getSubscriber(): Subscriber
+    {   
+        return $this->get('subscriber');
+    }
+    
+
     // Protected Methods
     // =========================================================================
 

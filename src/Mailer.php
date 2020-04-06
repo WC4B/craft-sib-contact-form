@@ -3,7 +3,7 @@
 namespace wc4bcraftsibcontactform\craftsibcontactform;
 
 use Craft;
-use wc4bcraftsibcontactform\craftsibcontactform\events\SendEvent;
+use wc4bcraftsibcontactform\craftsibcontactform\events\MailEvent;
 use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
 use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
 
@@ -57,7 +57,7 @@ class Mailer extends Component
 
         $mailer = Craft::$app->getMailer();
 
-        // Prep the message
+        // Prep the message        
         $fromEmail = $this->getFromEmail($mailer->from);
         $fromName = $this->compileFromName($submission->fromName);
         $subject = $this->compileSubject($submission->subject);
@@ -101,7 +101,7 @@ class Mailer extends Component
         $toEmails = is_string($toEmails) ? StringHelper::split($toEmails) : $toEmails;
 
         // Fire a 'beforeSend' event
-        $event = new SendEvent([
+        $event = new MailEvent([
             'submission' => $submission,
             'message' => $message,
             'toEmails' => $toEmails,
@@ -125,7 +125,7 @@ class Mailer extends Component
 
         // Fire an 'afterSend' event
         if ($this->hasEventHandlers(self::EVENT_AFTER_SEND)) {
-            $this->trigger(self::EVENT_AFTER_SEND, new SendEvent([
+            $this->trigger(self::EVENT_AFTER_SEND, new MailEvent([
                 'submission' => $submission,
                 'message' => $message,
                 'toEmails' => $event->toEmails,
