@@ -10,16 +10,18 @@
 
 namespace wc4bcraftsibcontactform\craftsibcontactform\controllers;
 
-
 use Craft;
 use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
 use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
 use craft\web\Controller;
 use craft\web\UploadedFile;
 use yii\web\Response;
+
 /**
  * Mail Controller
- *
+ * 
+ * Heavily based on the craftcms/contact-form
+ * 
  * @author    Joel Beer
  * @package   Craftsibcontactform
  * @since     1.0.0
@@ -64,7 +66,7 @@ class MailController extends Controller
         $message = $request->getBodyParam('message');
         if (is_array($message)) {
             // if it is an array clear out any instances where the value is null
-            $submission->message = array_filter($message, function($value) {
+            $submission->message = array_filter($message, function ($value) {
                 // TODO: do we want to filter out null vars ? it could be usefull information?
                 return $value !== '';
             });
@@ -72,7 +74,7 @@ class MailController extends Controller
             $submission->message = $message;
         }
 
-        // If attachments are allowed handle them 
+        // If attachments are allowed handle them
         if ($settings->allowAttachments && isset($_FILES['attachment']) && isset($_FILES['attachment']['name'])) {
             if (is_array($_FILES['attachment']['name'])) {
                 $submission->attachment = UploadedFile::getInstancesByName('attachment');
@@ -81,7 +83,7 @@ class MailController extends Controller
             }
         }
 
-        // If this fail handle the errors 
+        // If this fail handle the errors
         // send() handles the Submission Validation
         if (!$plugin->getMailer()->send($submission)) {
 
@@ -107,5 +109,4 @@ class MailController extends Controller
         Craft::$app->getSession()->setNotice($settings->successFlashMessage);
         return $this->redirectToPostedUrl($submission);
     }
-
 }
