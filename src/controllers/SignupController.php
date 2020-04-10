@@ -10,26 +10,13 @@
 
 namespace wc4bcraftsibcontactform\craftsibcontactform\controllers;
 
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
-
 use Craft;
 use craft\web\Controller;
-use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform as Plugin;
+use wc4bcraftsibcontactform\craftsibcontactform\models\Signup;
+use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
 
 /**
  * Signup Controller
- *
- * Generally speaking, controllers are the middlemen between the front end of
- * the CP/website and your plugin’s services. They contain action methods which
- * handle individual tasks.
- *
- * A common pattern used throughout Craft involves a controller action gathering
- * post data, saving it on a model, passing the model off to a service, and then
- * responding to the request appropriately depending on the service method’s response.
- *
- * Action methods begin with the prefix “action”, followed by a description of what
- * the method does (for example, actionSaveIngredient()).
  *
  * https://craftcms.com/docs/plugins/controllers
  *
@@ -48,7 +35,7 @@ class SignupController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = ['index', 'do-something'];
+    protected $allowAnonymous = ['index'];
 
     // Public Methods
     // =========================================================================
@@ -63,81 +50,24 @@ class SignupController extends Controller
     {
         // Get the request
         $this->requirePostRequest();
-        $request = Craft::$app->getRequest();
-        $settings = Plugin::getInstance()->getSettings();
-
-        $submission = new Submission();
-        $submission->fromEmail = $request->getBodyParam('fromEmail');
-
-        if (!$this->contactExists($submission, $settings)) {
-            return $this->sendToSIB($submission, $settings);
-        }
-    }
-
-    public function sendToSIB(Submission $submission, $settings)
-    {
-                
-        // Build the SIB details
-        $response = [];
+        $request  = Craft::$app->getRequest();
+        $plugin = Craftsibcontactform::getInstance();
+        
+        $response            = [];
         $response['success'] = true;
+        // Create a new signup
+        $signup = new Signup();
+        $signup->email = $request->getBodyParam('email');
+        
+        if(!$signup->validate()){
+            $response['success'] = false;
+            $response['errors']  = $signup->getErrors();
+            return $this->asJson($response);
+        }       
 
-        $apiKey = $settings->sibApiKey;
-        $lists = explode(",", $settings->sibLists);
-        $contactConf = ['email' =>$submission->fromEmail,'listIds'=>$lists];
-    
-        // Set up SIB client
-        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
-        $apiInstance = new \SendinBlue\Client\Api\ContactsApi(
-            new \GuzzleHttp\Client(),
-            $config
-        );
-
-        // Create SIB contact object
-        $createContact = new \SendinBlue\Client\Model\CreateContact($contactConf);
-        try {
-            // Send the contact to SIB
-            $result = $apiInstance->createContact($createContact);
-        } catch (\SendinBlue\Client\ApiException $e) {
-            
-            // Decipher error message from the SendinBlue API Wrapper getting only the error message
-            $exception = json_decode(trim(substr($e->getMessage(), strpos($e->getMessage(), 'response:') + 9)), true);
-            if ($exception['code'] = 'duplicate_parameter') {
-                $response['success'] = false;
-                $response['errors'] = ["signupError "=> $exception['code']];
-                return $this->asJson(['errors' => ["signupError "=> $exception['code']]]);
-            }
-        }
-
+        $response = $plugin->getSubscriber()->signup($signup);
+        
         return $this->asJson($response);
     }
-
-    public function contactExists(Submission $submission, $settings)
-    {
-        $response = false;
-        $apiKey   = $settings->sibApiKey;
     
-        // Set up SIB client
-        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
-        $apiInstance = new \SendinBlue\Client\Api\ContactsApi(
-            new \GuzzleHttp\Client(),
-            $config
-        );
-
-        try {
-            // if the contact exists return true
-            $result = $apiInstance->getContactInfo($submission->fromEmail);
-            if ($result->getEmail()) {
-                $response = true;
-            }
-        } catch (\SendinBlue\Client\ApiException $e) {
-               
-            // Check to see if the contact exists
-            $exception = json_decode(trim(substr($e->getMessage(), strpos($e->getMessage(), 'response:') + 9)), true);
-            if ($exception['code'] = 'document_not_found') {
-                $response = false;
-            }
-        }
-
-        return $response;
-    }
 }

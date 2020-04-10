@@ -10,29 +10,18 @@
 
 namespace wc4bcraftsibcontactform\craftsibcontactform\controllers;
 
-
 use Craft;
 use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform as Plugin;
+use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
 use craft\web\Controller;
 use craft\web\UploadedFile;
 use yii\web\Response;
+
 /**
  * Mail Controller
- *
- * Generally speaking, controllers are the middlemen between the front end of
- * the CP/website and your plugin’s services. They contain action methods which
- * handle individual tasks.
- *
- * A common pattern used throughout Craft involves a controller action gathering
- * post data, saving it on a model, passing the model off to a service, and then
- * responding to the request appropriately depending on the service method’s response.
- *
- * Action methods begin with the prefix “action”, followed by a description of what
- * the method does (for example, actionSaveIngredient()).
- *
- * https://craftcms.com/docs/plugins/controllers
- *
+ * 
+ * Heavily based on the craftcms/contact-form
+ * 
  * @author    Joel Beer
  * @package   Craftsibcontactform
  * @since     1.0.0
@@ -48,7 +37,7 @@ class MailController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = ['index', 'do-something'];
+    protected $allowAnonymous = ['index'];
 
     // Public Methods
     // =========================================================================
@@ -61,25 +50,31 @@ class MailController extends Controller
      */
     public function actionIndex()
     {
+        // Get the post request
         $this->requirePostRequest();
         $request = Craft::$app->getRequest();
-        $plugin = Plugin::getInstance();
+        $plugin = Craftsibcontactform::getInstance();
         $settings = $plugin->getSettings();
 
+        // Create a new Submission & Assign it data from the post request
         $submission = new Submission();
         $submission->fromEmail = $request->getBodyParam('fromEmail');
         $submission->fromName = $request->getBodyParam('fromName');
         $submission->subject = $request->getBodyParam('subject');
 
+        // If the Message is not an array use it as the main message
         $message = $request->getBodyParam('message');
         if (is_array($message)) {
-            $submission->message = array_filter($message, function($value) {
+            // if it is an array clear out any instances where the value is null
+            $submission->message = array_filter($message, function ($value) {
+                // TODO: do we want to filter out null vars ? it could be usefull information?
                 return $value !== '';
             });
         } else {
             $submission->message = $message;
         }
 
+        // If attachments are allowed handle them
         if ($settings->allowAttachments && isset($_FILES['attachment']) && isset($_FILES['attachment']['name'])) {
             if (is_array($_FILES['attachment']['name'])) {
                 $submission->attachment = UploadedFile::getInstancesByName('attachment');
@@ -88,11 +83,16 @@ class MailController extends Controller
             }
         }
 
+        // If this fail handle the errors
+        // send() handles the Submission Validation
         if (!$plugin->getMailer()->send($submission)) {
+
+            // if the request accepts json return it as json
             if ($request->getAcceptsJson()) {
                 return $this->asJson(['errors' => $submission->getErrors()]);
             }
 
+            // If the request does not allow json set the session variables to use on the front end.
             Craft::$app->getSession()->setError(Craft::t('craft-sib-contact-form', 'There was a problem with your submission, please check the form and try again!'));
             Craft::$app->getUrlManager()->setRouteParams([
                 'variables' => ['message' => $submission]
@@ -101,24 +101,12 @@ class MailController extends Controller
             return null;
         }
 
+        // If this is run the send was successfull and can return true json
         if ($request->getAcceptsJson()) {
             return $this->asJson(['success' => true]);
         }
-
+        // if request does not allow json set the session flash message to be displayed on the front end
         Craft::$app->getSession()->setNotice($settings->successFlashMessage);
         return $this->redirectToPostedUrl($submission);
-    }
-
-    /**
-     * Handle a request going to our plugin's actionDoSomething URL,
-     * e.g.: actions/craft-sib-contact-form/mail/do-something
-     *
-     * @return mixed
-     */
-    public function actionDoSomething()
-    {
-        $result = 'Welcome to the MailController actionDoSomething() method';
-
-        return $result;
     }
 }

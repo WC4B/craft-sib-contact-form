@@ -32,12 +32,10 @@ class Signup extends Model
     // Public Properties
     // =========================================================================
 
-    /**
-     * Some model attribute
-     *
-     * @var string
+        /**
+     * @var string|null
      */
-    public $someAttribute = 'Some Default';
+    public $email;
 
     // Public Methods
     // =========================================================================
@@ -55,8 +53,9 @@ class Signup extends Model
     public function rules()
     {
         return [
-            ['someAttribute', 'string'],
-            ['someAttribute', 'default', 'value' => 'Some Default'],
+            ['email', 'string'],
+            ['email', 'required'],
+            ['email', 'email'],
         ];
     }
 }

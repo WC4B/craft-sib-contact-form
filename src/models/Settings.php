@@ -106,7 +106,7 @@ class Settings extends Model
     public function rules()
     {
         return [
-               [['toEmail', 'successFlashMessage','sibApiKey'], 'required'],
+            [['toEmail', 'successFlashMessage','sibApiKey'], 'required'],
             [['toEmail', 'prependSender', 'prependSubject', 'successFlashMessage'], 'string'],
         ];
     }

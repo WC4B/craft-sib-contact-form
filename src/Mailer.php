@@ -3,9 +3,9 @@
 namespace wc4bcraftsibcontactform\craftsibcontactform;
 
 use Craft;
-use wc4bcraftsibcontactform\craftsibcontactform\events\SendEvent;
+use wc4bcraftsibcontactform\craftsibcontactform\events\MailEvent;
 use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform as Plugin;
+use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
 
 use craft\elements\User;
 use craft\helpers\FileHelper;
@@ -39,13 +39,13 @@ class Mailer extends Component
      *
      * @param Submission $submission
      * @param bool $runValidation Whether the section should be validated
-     * @throws InvalidConfigException if the plugin settings don't validate
+     * @throws InvalidConfigException if the Craftsibcontactform settings don't validate
      * @return bool
      */
     public function send(Submission $submission, bool $runValidation = true): bool
     {
-        // Get the plugin settings and make sure they validate before doing anything
-        $settings = Plugin::getInstance()->getSettings();
+        // Get the Craftsibcontactform settings and make sure they validate before doing anything
+        $settings = Craftsibcontactform::getInstance()->getSettings();
         if (!$settings->validate()) {
             throw new InvalidConfigException('The Contact Form settings don’t validate.');
         }
@@ -57,7 +57,7 @@ class Mailer extends Component
 
         $mailer = Craft::$app->getMailer();
 
-        // Prep the message
+        // Prep the message        
         $fromEmail = $this->getFromEmail($mailer->from);
         $fromName = $this->compileFromName($submission->fromName);
         $subject = $this->compileSubject($submission->subject);
@@ -96,12 +96,12 @@ class Mailer extends Component
             }
         }
 
-        // Grab any "to" emails set in the plugin settings.
+        // Grab any "to" emails set in the Craftsibcontactform settings.
         $toEmails = Craft::parseEnv($settings->toEmail);
         $toEmails = is_string($toEmails) ? StringHelper::split($toEmails) : $toEmails;
 
         // Fire a 'beforeSend' event
-        $event = new SendEvent([
+        $event = new MailEvent([
             'submission' => $submission,
             'message' => $message,
             'toEmails' => $toEmails,
@@ -125,7 +125,7 @@ class Mailer extends Component
 
         // Fire an 'afterSend' event
         if ($this->hasEventHandlers(self::EVENT_AFTER_SEND)) {
-            $this->trigger(self::EVENT_AFTER_SEND, new SendEvent([
+            $this->trigger(self::EVENT_AFTER_SEND, new MailEvent([
                 'submission' => $submission,
                 'message' => $message,
                 'toEmails' => $event->toEmails,
@@ -169,7 +169,7 @@ class Mailer extends Component
      */
     public function compileFromName(string $fromName = null): string
     {
-        $settings = Plugin::getInstance()->getSettings();
+        $settings = Craftsibcontactform::getInstance()->getSettings();
         return $settings->prependSender.($settings->prependSender && $fromName ? ' ' : '').$fromName;
     }
 
@@ -181,7 +181,7 @@ class Mailer extends Component
      */
     public function compileSubject(string $subject = null): string
     {
-        $settings = Plugin::getInstance()->getSettings();
+        $settings = Craftsibcontactform::getInstance()->getSettings();
         return $settings->prependSubject.($settings->prependSubject && $subject ? ' - ' : '').$subject;
     }
 
