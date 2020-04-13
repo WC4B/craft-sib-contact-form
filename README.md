@@ -49,7 +49,7 @@ This is where you can add custom validation for your form elements.
 For example.
 
 ```<?php
-use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
+use wc4b\craftsibcontactform\models\Submission;
 use yii\base\Event;
 
 
@@ -81,8 +81,8 @@ This is where you can add custom validation for your form elements.
 For example.
 
 ```<?php 
-use wc4bcraftsibcontactform\craftsibcontactform\events\MailEvent;
-use wc4bcraftsibcontactform\craftsibcontactform\Mailer;
+use wc4b\craftsibcontactform\events\MailEvent;
+use wc4b\craftsibcontactform\Mailer;
 use yii\base\Event;
 
 
@@ -97,8 +97,8 @@ In addition to the above the plugin also has event hooks when signing up users t
 For example.
 
 ```<?php 
-use wc4bcraftsibcontactform\craftsibcontactform\events\SignupEvent;
-use wc4bcraftsibcontactform\craftsibcontactform\Subscriber;
+use wc4b\craftsibcontactform\events\SignupEvent;
+use wc4b\craftsibcontactform\Subscriber;
 use yii\base\Event;
 
 
