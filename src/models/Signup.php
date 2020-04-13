@@ -1,17 +1,14 @@
 <?php
 /**
- * craft-sib-contact-form plugin for Craft CMS 3.x
+ * sib-contact-form-integration plugin for Craft CMS 3.x
  *
  * A contact form integration for the Send in Blue API
  *
- * @link      https://github.com/WC4B/craft-sib-contact-form
+ * @link      https://github.com/WC4B/sib-contact-form-integration
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4b\craftsibcontactform\models;
-
-use wc4b\craftsibcontactform\Craftsibcontactform;
-
+namespace wc4b\sibcontactformintegration\models;
 use Craft;
 use craft\base\Model;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace wc4b\craftsibcontactform;
+namespace wc4b\sibcontactformintegration;
 
 use Craft;
-use wc4b\craftsibcontactform\events\MailEvent;
-use wc4b\craftsibcontactform\models\Submission;
-use wc4b\craftsibcontactform\Craftsibcontactform;
+use wc4b\sibcontactformintegration\events\MailEvent;
+use wc4b\sibcontactformintegration\models\Submission;
+use wc4b\sibcontactformintegration\Plugin;
 
 use craft\elements\User;
 use craft\helpers\FileHelper;
@@ -45,7 +45,7 @@ class Mailer extends Component
     public function send(Submission $submission, bool $runValidation = true): bool
     {
         // Get the Craftsibcontactform settings and make sure they validate before doing anything
-        $settings = Craftsibcontactform::getInstance()->getSettings();
+        $settings = Plugin::getInstance()->getSettings();
         if (!$settings->validate()) {
             throw new InvalidConfigException('The Contact Form settings don’t validate.');
         }
@@ -57,7 +57,7 @@ class Mailer extends Component
 
         $mailer = Craft::$app->getMailer();
 
-        // Prep the message        
+        // Prep the message
         $fromEmail = $this->getFromEmail($mailer->from);
         $fromName = $this->compileFromName($submission->fromName);
         $subject = $this->compileSubject($submission->subject);
@@ -113,7 +113,7 @@ class Mailer extends Component
             return true;
         }
 
-        if($validAttachments === false) {
+        if ($validAttachments === false) {
             Craft::error('Contact form submission contains a disallowed filetype.', __METHOD__);
             return false;
         }
@@ -169,7 +169,7 @@ class Mailer extends Component
      */
     public function compileFromName(string $fromName = null): string
     {
-        $settings = Craftsibcontactform::getInstance()->getSettings();
+        $settings = Plugin::getInstance()->getSettings();
         return $settings->prependSender.($settings->prependSender && $fromName ? ' ' : '').$fromName;
     }
 
@@ -181,7 +181,7 @@ class Mailer extends Component
      */
     public function compileSubject(string $subject = null): string
     {
-        $settings = Craftsibcontactform::getInstance()->getSettings();
+        $settings = Plugin::getInstance()->getSettings();
         return $settings->prependSubject.($settings->prependSubject && $subject ? ' - ' : '').$subject;
     }
 
@@ -196,10 +196,10 @@ class Mailer extends Component
         $fields = [];
 
         if ($submission->fromName) {
-            $fields[Craft::t('craft-sib-contact-form', 'Name')] = $submission->fromName;
+            $fields[Craft::t('sib-contact-form-integration', 'Name')] = $submission->fromName;
         }
 
-        $fields[Craft::t('craft-sib-contact-form', 'Email')] = $submission->fromEmail;
+        $fields[Craft::t('sib-contact-form-integration', 'Email')] = $submission->fromEmail;
 
         if (is_array($submission->message)) {
             $body = $submission->message['body'] ?? '';

@@ -1,24 +1,24 @@
 {
-    "name": "wc4b/craft-sib-contact-form",
+    "name": "wc4b/sib-contact-form-integration",
     "description": "A contact form integration for the Send in Blue API",
     "type": "craft-plugin",
-    "version": "1.4.0",
+    "version": "1.5.1",
     "keywords": [
         "craft",
         "cms",
         "craftcms",
         "craft-plugin",
-        "craft-sib-contact-form"
+        "sib-contact-form-integration"
     ],
     "support": {
-        "docs": "https://github.com/craft-sib-contact-form/craft-sib-contact-form/blob/master/README.md",
-        "issues": "https://github.com/craft-sib-contact-form/craft-sib-contact-form/issues"
+        "docs": "https://github.com/WC4B/sib-contact-form-intrgration/blob/master/README.md",
+        "issues": "https://github.com/sib-contact-form-integration/sib-contact-form-integration/issues"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "WillCodeForBeer",
-            "homepage": "https://github.com/WC4B/craft-sib-contact-form" 
+            "homepage": "https://github.com/WC4B/sib-contact-form-intrgration/" 
         }
     ],
     "require": {
@@ -28,20 +28,20 @@
     },
     "autoload": {
         "psr-4": {
-            "wc4b\\craftsibcontactform\\": "src/"
+            "wc4b\\sibcontactformintegration\\": "src/"
         }
     },
     "extra": {
-        "name": "craft-sib-contact-form",
-        "handle": "craft-sib-contact-form",
+        "name": "SIB Contact Form Integration",
+        "handle": "sib-contact-form-integration",
         "developer": "WillCodeForBeer",
-        "developerUrl": "https://github.com/WC4B/craft-sib-contact-form",
-        "documentationUrl": "https://github.com/craft-sib-contact-form/craft-sib-contact-form/blob/master/README.md",
-        "changelogUrl": "https://raw.githubusercontent.com/craft-sib-contact-form/craft-sib-contact-form/master/CHANGELOG.md",
-        "class": "wc4b\\craftsibcontactform\\Craftsibcontactform",
+        "developerUrl": "https://github.com/WC4B/sib-contact-form-intrgration/",
+        "documentationUrl": "https://github.com/WC4B/sib-contact-form-intrgration/blob/master/README.md",
+        "changelogUrl": "https://github.com/WC4B/sib-contact-form-intrgration/blob/master/CHANGELOG.md",
+        "class": "wc4b\\sibcontactformintegration\\Plugin",
         "components": {
-            "mailer": "wc4b\\craftsibcontactform\\Mailer",
-            "subscriber": "wc4b\\craftsibcontactform\\Subscriber"
+            "mailer": "wc4b\\sibcontactformintegration\\Mailer",
+            "subscriber": "wc4b\\sibcontactformintegration\\Subscriber"
         }
     }
 }

@@ -2,9 +2,9 @@
 
 {% macro configWarning(setting) -%}
     {% set setting = '<code>'~setting~'</code>' %}
-    {{ "This is being overridden by the {setting} config setting in your {file} config file."|t('craft-sib-contact-form', {
+    {{ "This is being overridden by the {setting} config setting in your {file} config file."|t('sib-contact-form-integration', {
         setting: setting,
-        file: 'craft-sib-contact-form.php'
+        file: 'sib-contact-form-integration.php'
     })|raw }}
 {%- endmacro %}
 
@@ -12,11 +12,11 @@
 
 {{ forms.autosuggestField({
     first:        true,
-    label:        "To Email"|t('craft-sib-contact-form'),
+    label:        "To Email"|t('sib-contact-form-integration'),
     required:     true,
     id:           'toEmail',
     name:         'toEmail',
-    instructions: "The email address(es) that the contact form will send to. Separate multiple email addresses with commas."|t('craft-sib-contact-form'),
+    instructions: "The email address(es) that the contact form will send to. Separate multiple email addresses with commas."|t('sib-contact-form-integration'),
     value:        settings.toEmail,
     suggestEnvVars: true,
     autofocus:    true,
@@ -27,10 +27,10 @@
 
 {{ forms.textField({
     first:        true,
-    label:        "SIB API KEY"|t('craft-sib-contact-form'),
+    label:        "SIB API KEY"|t('sib-contact-form-integration'),
     id:           'sibApiKey',
     name:         'sibApiKey',
-    instructions: "The API is required to talk to Send In Blue"|t('craft-sib-contact-form'),
+    instructions: "The API is required to talk to Send In Blue"|t('sib-contact-form-integration'),
     value:        settings.sibApiKey,
     disabled:     'sibApiKey' in overrides,
     warning:      'sibApiKey' in overrides ? configWarning('sibApiKey'),
@@ -39,11 +39,11 @@
 
 {{ forms.textField({
     first:        true,
-    label:        "SIB Lists"|t('craft-sib-contact-form'),
+    label:        "SIB Lists"|t('sib-contact-form-integration'),
     required:     true,
     id:           'sibLists',
     name:         'sibLists',
-    instructions: "The lists to add the new Send In Blue contact to. Separate multiple lists with commas. Leave blank to not assign to any lists"|t('craft-sib-contact-form'),
+    instructions: "The lists to add the new Send In Blue contact to. Separate multiple lists with commas. Leave blank to not assign to any lists"|t('sib-contact-form-integration'),
     value:        settings.sibLists,
     disabled:     'sibLists' in overrides,
     warning:      'sibLists' in overrides ? configWarning('sibLists'),
@@ -52,10 +52,10 @@
 
 
 {{ forms.textField({
-    label:        "Sender Text"|t('craft-sib-contact-form'),
+    label:        "Sender Text"|t('sib-contact-form-integration'),
     id:           'prependSender',
     name:         'prependSender',
-    instructions: "Text that will be prepended to the email’s From Name to inform who the Contact Form actually was sent by."|t('craft-sib-contact-form'),
+    instructions: "Text that will be prepended to the email’s From Name to inform who the Contact Form actually was sent by."|t('sib-contact-form-integration'),
     value:        (settings.prependSender ? settings.prependSender : ""),
     disabled:     'prependSender' in overrides,
     warning:      'prependSender' in overrides ? configWarning('prependSender'),
@@ -63,10 +63,10 @@
 }) }}
 
 {{ forms.textField({
-    label:        "Subject Text"|t('craft-sib-contact-form'),
+    label:        "Subject Text"|t('sib-contact-form-integration'),
     id:           'prependSubject',
     name:         'prependSubject',
-    instructions: "Text that will be prepended to the email’s Subject to flag that it comes from the Contact Form."|t('craft-sib-contact-form'),
+    instructions: "Text that will be prepended to the email’s Subject to flag that it comes from the Contact Form."|t('sib-contact-form-integration'),
     value:        (settings.prependSubject ? settings.prependSubject : ""),
     disabled:     'prependSubject' in overrides,
     warning:      'prependSubject' in overrides ? configWarning('prependSubject'),
@@ -74,7 +74,7 @@
 }) }}
 
 {{ forms.lightswitchField({
-    label:        "Allow attachments?"|t('craft-sib-contact-form'),
+    label:        "Allow attachments?"|t('sib-contact-form-integration'),
     id:           'allowAttachments',
     name:         'allowAttachments',
     on:           settings.allowAttachments,
@@ -84,10 +84,10 @@
 }) }}
 
 {{ forms.textField({
-    label:        "Success Flash Message"|t('craft-sib-contact-form'),
+    label:        "Success Flash Message"|t('sib-contact-form-integration'),
     id:           "successFlashMessage",
     name:         "successFlashMessage",
-    instructions: "The flash message displayed after successfully sending a message."|t('craft-sib-contact-form'),
+    instructions: "The flash message displayed after successfully sending a message."|t('sib-contact-form-integration'),
     value:        settings.successFlashMessage,
     disabled:     'successFlashMessage' in overrides,
     warning:      'successFlashMessage' in overrides ? configWarning('successFlashMessage'),

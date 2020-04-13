@@ -1,19 +1,19 @@
 <?php
 /**
- * craft-sib-contact-form plugin for Craft CMS 3.x
+ * sib-contact-form-integration plugin for Craft CMS 3.x
  *
  * A contact form integration for the Send in Blue API
  *
- * @link      https://github.com/WC4B/craft-sib-contact-form
+ * @link      https://github.com/WC4B/sib-contact-form-integration
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4b\craftsibcontactform\controllers;
+namespace wc4b\sibcontactformintegration\controllers;
 
 use Craft;
 use craft\web\Controller;
-use wc4b\craftsibcontactform\models\Signup;
-use wc4b\craftsibcontactform\Craftsibcontactform;
+use wc4b\sibcontactformintegration\models\Signup;
+use wc4b\sibcontactformintegration\Plugin;
 
 /**
  * Signup Controller
@@ -42,7 +42,7 @@ class SignupController extends Controller
 
     /**
      * Handle a request going to our plugin's index action URL,
-     * e.g.: actions/craft-sib-contact-form/signup
+     * e.g.: actions/sib-contact-form-integration/signup
      *
      * @return mixed
      */
@@ -51,7 +51,7 @@ class SignupController extends Controller
         // Get the request
         $this->requirePostRequest();
         $request  = Craft::$app->getRequest();
-        $plugin = Craftsibcontactform::getInstance();
+        $plugin   = Plugin::getInstance();
         
         $response            = [];
         $response['success'] = true;

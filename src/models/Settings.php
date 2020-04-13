@@ -1,17 +1,14 @@
 <?php
 /**
- * craft-sib-contact-form plugin for Craft CMS 3.x
+ * sib-contact-form-integration plugin for Craft CMS 3.x
  *
  * A contact form integration for the Send in Blue API
  *
- * @link      https://github.com/WC4B/craft-sib-contact-form
+ * @link      https://github.com/WC4B/sib-contact-form-integration
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4b\craftsibcontactform\models;
-
-use wc4b\craftsibcontactform\Craftsibcontactform;
-
+namespace wc4b\sibcontactformintegration\models;
 use Craft;
 use craft\base\Model;
 
@@ -78,17 +75,17 @@ class Settings extends Model
         parent::init();
 
         if ($this->prependSender === null) {
-            $this->prependSender = \Craft::t('craft-sib-contact-form', 'On behalf of');
+            $this->prependSender = \Craft::t('sib-contact-form-integration', 'On behalf of');
         }
 
         if ($this->prependSubject === null) {
-            $this->prependSubject = \Craft::t('craft-sib-contact-form', 'New message from {siteName}', [
+            $this->prependSubject = \Craft::t('sib-contact-form-integration', 'New message from {siteName}', [
                 'siteName' => \Craft::$app->getSites()->getCurrentSite()->name
             ]);
         }
 
         if ($this->successFlashMessage === null) {
-            $this->successFlashMessage = \Craft::t('craft-sib-contact-form', 'Your message has been sent.');
+            $this->successFlashMessage = \Craft::t('sib-contact-form-integration', 'Your message has been sent.');
         }
     }
 

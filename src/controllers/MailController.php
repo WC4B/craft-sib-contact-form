@@ -1,18 +1,18 @@
 <?php
 /**
- * craft-sib-contact-form plugin for Craft CMS 3.x
+ * sib-contact-form-integration plugin for Craft CMS 3.x
  *
  * A contact form integration for the Send in Blue API
  *
- * @link      https://github.com/WC4B/craft-sib-contact-form
+ * @link      https://github.com/WC4B/sib-contact-form-integration
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4b\craftsibcontactform\controllers;
+namespace wc4b\sibcontactformintegration\controllers;
 
 use Craft;
-use wc4b\craftsibcontactform\models\Submission;
-use wc4b\craftsibcontactform\Craftsibcontactform;
+use wc4b\sibcontactformintegration\models\Submission;
+use wc4b\sibcontactformintegration\Plugin;
 use craft\web\Controller;
 use craft\web\UploadedFile;
 use yii\web\Response;
@@ -44,7 +44,7 @@ class MailController extends Controller
 
     /**
      * Handle a request going to our plugin's index action URL,
-     * e.g.: actions/craft-sib-contact-form/mail
+     * e.g.: actions/sib-contact-form-integration/mail
      *
      * @return mixed
      */
@@ -53,7 +53,7 @@ class MailController extends Controller
         // Get the post request
         $this->requirePostRequest();
         $request = Craft::$app->getRequest();
-        $plugin = Craftsibcontactform::getInstance();
+        $plugin = Plugin::getInstance();
         $settings = $plugin->getSettings();
 
         // Create a new Submission & Assign it data from the post request
@@ -93,7 +93,7 @@ class MailController extends Controller
             }
 
             // If the request does not allow json set the session variables to use on the front end.
-            Craft::$app->getSession()->setError(Craft::t('craft-sib-contact-form', 'There was a problem with your submission, please check the form and try again!'));
+            Craft::$app->getSession()->setError(Craft::t('sib-contact-form-integration', 'There was a problem with your submission, please check the form and try again!'));
             Craft::$app->getUrlManager()->setRouteParams([
                 'variables' => ['message' => $submission]
             ]);

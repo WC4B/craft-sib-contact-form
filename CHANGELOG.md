@@ -1,4 +1,4 @@
-# craft-sib-contact-form Changelog
+# sib-contact-form-integration Changelog
 
 All notable changes to this project will be documented in this file.
 

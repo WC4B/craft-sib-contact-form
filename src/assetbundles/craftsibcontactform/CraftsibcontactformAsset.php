@@ -1,10 +1,10 @@
 <?php
 /**
- * craft-sib-contact-form plugin for Craft CMS 3.x
+ * sib-contact-form-integration plugin for Craft CMS 3.x
  *
  * A contact form integration for the Send in Blue API
  *
- * @link      https://github.com/WC4B/craft-sib-contact-form
+ * @link      https://github.com/WC4B/sib-contact-form-integration
  * @copyright Copyright (c) 2020 Joel Beer
  */
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace wc4b\craftsibcontactform;
+namespace wc4b\sibcontactformintegration;
 
 use Craft;
-use wc4b\craftsibcontactform\events\SignupEvent;
-use wc4b\craftsibcontactform\models\Signup;
-use wc4b\craftsibcontactform\Craftsibcontactform;
+use wc4b\sibcontactformintegration\events\SignupEvent;
+use wc4b\sibcontactformintegration\models\Signup;
+use wc4b\sibcontactformintegration\Plugin;
 
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -33,7 +33,7 @@ class Subscriber extends Component
 
     function __construct() {
 
-        $this->pluginSettings = Craftsibcontactform::getInstance()->getSettings();
+        $this->pluginSettings = Plugin::getInstance()->getSettings();
         $apiKey =  $this->pluginSettings->sibApiKey;
         $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
       

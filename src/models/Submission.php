@@ -8,9 +8,7 @@
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4b\craftsibcontactform\models;
-
-use wc4b\craftsibcontactform\Craftsibcontactform;
+namespace wc4b\sibcontactformintegration\models;
 
 use Craft;
 use craft\base\Model;
@@ -66,10 +64,10 @@ class Submission extends Model
     public function attributeLabels()
     {
         return [
-            'fromName' => \Craft::t('craft-sib-contact-form', 'Your Name'),
-            'fromEmail' => \Craft::t('craft-sib-contact-form', 'Your Email'),
-            'message' => \Craft::t('craft-sib-contact-form', 'Message'),
-            'subject' => \Craft::t('craft-sib-contact-form', 'Subject'),
+            'fromName' => \Craft::t('sib-contact-form-integration', 'Your Name'),
+            'fromEmail' => \Craft::t('sib-contact-form-integration', 'Your Email'),
+            'message' => \Craft::t('sib-contact-form-integration', 'Message'),
+            'subject' => \Craft::t('sib-contact-form-integration', 'Subject'),
         ];
     }
     /**

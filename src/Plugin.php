@@ -1,19 +1,19 @@
 <?php
 /**
- * craft-sib-contact-form plugin for Craft CMS 3.x
+ * sib-contact-form-integration plugin for Craft CMS 3.x
  *
  * A contact form integration for the Send in Blue API
  *
- * @link      https://github.com/WC4B/craft-sib-contact-form
+ * @link      https://github.com/WC4B/sib-contact-form-integration
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4b\craftsibcontactform;
+namespace wc4b\sibcontactformintegration;
 
-use wc4b\craftsibcontactform\models\Settings;
+use wc4b\sibcontactformintegration\models\Settings;
 
 use Craft;
-use craft\base\Plugin;
+use craft\base\Plugin as craftPlugin;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\web\UrlManager;
@@ -40,7 +40,7 @@ use yii\base\Event;
  * @property  Settings $settings
  * @method    Settings getSettings()
  */
-class Craftsibcontactform extends Plugin
+class Plugin extends craftPlugin
 {
     // Static Properties
     // =========================================================================
@@ -101,8 +101,8 @@ class Craftsibcontactform extends Plugin
             UrlManager::class,
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['siteActionTrigger1'] = 'craft-sib-contact-form/mail';
-                $event->rules['siteActionTrigger2'] = 'craft-sib-contact-form/signup';
+                $event->rules['siteActionTrigger1'] = 'sib-contact-form-integration/mail';
+                $event->rules['siteActionTrigger2'] = 'sib-contact-form-integration/signup';
             }
         );
 
@@ -111,8 +111,8 @@ class Craftsibcontactform extends Plugin
             UrlManager::class,
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['cpActionTrigger1'] = 'craft-sib-contact-form/mail/do-something';
-                $event->rules['cpActionTrigger2'] = 'craft-sib-contact-form/signup/do-something';
+                $event->rules['cpActionTrigger1'] = 'sib-contact-form-integration/mail/do-something';
+                $event->rules['cpActionTrigger2'] = 'sib-contact-form-integration/signup/do-something';
             }
         );
 
@@ -147,7 +147,7 @@ class Craftsibcontactform extends Plugin
  */
         Craft::info(
             Craft::t(
-                'craft-sib-contact-form',
+                'sib-contact-form-integration',
                 '{name} plugin loaded',
                 ['name' => $this->name]
             ),
@@ -202,7 +202,7 @@ class Craftsibcontactform extends Plugin
         // Get the settings that are being defined by the config file
         $overrides = Craft::$app->getConfig()->getConfigFromFile(strtolower($this->handle));
 
-        return Craft::$app->view->renderTemplate('craft-sib-contact-form/_settings', [
+        return Craft::$app->view->renderTemplate('sib-contact-form-integration/_settings', [
             'settings' => $settings,
             'overrides' => array_keys($overrides),
         ]);

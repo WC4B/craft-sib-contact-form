@@ -18,9 +18,9 @@ To install the plugin, follow these instructions.
 
 2. Then tell Composer to load the plugin:
 
-        composer require craft-sib-contact-form/craft-sib-contact-form
+        composer require sib-contact-form-integration/sib-contact-form-integration
 
-3. In the Control Panel, go to Settings → Plugins and click the “Install” button for craft-sib-contact-form.
+3. In the Control Panel, go to Settings → Plugins and click the “Install” button for sib-contact-form-integration.
 
 
 ## craft sib contact form Overview
@@ -29,19 +29,19 @@ This plugin is a fork of the [craftcms/contact-form](https://github.com/craftcms
 In adition to this this plugin has additional settings and logic to handle talking to the [Send In Blue API](https://developers.sendinblue.com/).
 This plugin lets you add contacts to your SendInBlue contact lists and add those contacts to mailing lists.
 
-# Configuring craft-sib-contact-form
+# Configuring sib-contact-form-integration
 
 ## CMS Settings
-Within the craft CMS, go to the settings page and click on the `craft-sib-contact-form` settings. 
+Within the craft CMS, go to the settings page and click on the `sib-contact-form-integration` settings. 
 From here you can add your Send In Blue API Key as `SIB API Key` and the newsletter list ID's comma separated within the `SIB Lists` textbox.
 
 ## Custom Logic
 
 To add custom logic the plugin has extended the `afterValidate` and `beforeSend` event hooks from  original [craftcms/contact-form](https://github.com/craftcms/contact-form).
 
-To use the following event hooks add them to a `craft-sib-contact-form.php` file in your projects `/config` directory.
+To use the following event hooks add them to a `sib-contact-form-integration.php` file in your projects `/config` directory.
 
-e.g. `my-project/config/craft-sib-contact-form.php`
+e.g. `my-project/config/sib-contact-form-integration.php`
 
 ### afterValidate
 The plugin has the original `afterValidate` but uses the plugins namespacing.
@@ -49,7 +49,7 @@ This is where you can add custom validation for your form elements.
 For example.
 
 ```<?php
-use wc4b\craftsibcontactform\models\Submission;
+use wc4b\sibcontactformintegration\models\Submission;
 use yii\base\Event;
 
 
@@ -81,8 +81,8 @@ This is where you can add custom validation for your form elements.
 For example.
 
 ```<?php 
-use wc4b\craftsibcontactform\events\MailEvent;
-use wc4b\craftsibcontactform\Mailer;
+use wc4b\sibcontactformintegration\events\MailEvent;
+use wc4b\sibcontactformintegration\Mailer;
 use yii\base\Event;
 
 
@@ -97,8 +97,8 @@ In addition to the above the plugin also has event hooks when signing up users t
 For example.
 
 ```<?php 
-use wc4b\craftsibcontactform\events\SignupEvent;
-use wc4b\craftsibcontactform\Subscriber;
+use wc4b\sibcontactformintegration\events\SignupEvent;
+use wc4b\sibcontactformintegration\Subscriber;
 use yii\base\Event;
 
 
@@ -108,7 +108,7 @@ Event::on(Subscriber::class, Subscriber::EVENT_BEFORE_SIGNUP || Subscriber::EVEN
 ```
 
 
-## Using craft-sib-contact-form
+## Using sib-contact-form-integration
 
 You can use the contact form via a page submission as indictated in the [craftcms/contact-form](https://github.com/craftcms/contact-form) docs. 
 That being said it is recomended to use a `Ajax` request to handle the form submission for increased user experience. 
@@ -230,7 +230,7 @@ With the following template
 ```	.
 <form id="contact-form" method="post" accept-charset="UTF-8">
     {{ csrfInput() }}
-    <input type="hidden" name="action" value="craft-sib-contact-form/mail">
+    <input type="hidden" name="action" value="sib-contact-form-integration/mail">
 
     <div class="py-2">
         <div>
@@ -282,10 +282,10 @@ With the following template
 </form>
 ```
 
-## craft-sib-contact-form Roadmap
+## sib-contact-form-integration Roadmap
 
 Some things to do, and ideas for potential features:
 
 * Option to make terms and conditions check mandatory
 
-Brought to you by [WillCodeForBeer](https://github.com/WC4B/craft-sib-contact-form)
+Brought to you by [WillCodeForBeer](https://github.com/WC4B/sib-contact-form-integration)
