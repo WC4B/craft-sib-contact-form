@@ -1,11 +1,11 @@
 <?php
 
-namespace wc4bcraftsibcontactform\craftsibcontactform;
+namespace wc4b\craftsibcontactform;
 
 use Craft;
-use wc4bcraftsibcontactform\craftsibcontactform\events\MailEvent;
-use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
+use wc4b\craftsibcontactform\events\MailEvent;
+use wc4b\craftsibcontactform\models\Submission;
+use wc4b\craftsibcontactform\Craftsibcontactform;
 
 use craft\elements\User;
 use craft\helpers\FileHelper;

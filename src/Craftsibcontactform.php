@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4bcraftsibcontactform\craftsibcontactform;
+namespace wc4b\craftsibcontactform;
 
-use wc4bcraftsibcontactform\craftsibcontactform\models\Settings;
+use wc4b\craftsibcontactform\models\Settings;
 
 use Craft;
 use craft\base\Plugin;

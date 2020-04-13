@@ -8,11 +8,11 @@
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4bcraftsibcontactform\craftsibcontactform\controllers;
+namespace wc4b\craftsibcontactform\controllers;
 
 use Craft;
-use wc4bcraftsibcontactform\craftsibcontactform\models\Submission;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
+use wc4b\craftsibcontactform\models\Submission;
+use wc4b\craftsibcontactform\Craftsibcontactform;
 use craft\web\Controller;
 use craft\web\UploadedFile;
 use yii\web\Response;

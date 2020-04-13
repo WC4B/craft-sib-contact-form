@@ -8,12 +8,12 @@
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4bcraftsibcontactform\craftsibcontactform\controllers;
+namespace wc4b\craftsibcontactform\controllers;
 
 use Craft;
 use craft\web\Controller;
-use wc4bcraftsibcontactform\craftsibcontactform\models\Signup;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
+use wc4b\craftsibcontactform\models\Signup;
+use wc4b\craftsibcontactform\Craftsibcontactform;
 
 /**
  * Signup Controller

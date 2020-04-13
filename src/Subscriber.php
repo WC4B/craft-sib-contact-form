@@ -1,11 +1,11 @@
 <?php
 
-namespace wc4bcraftsibcontactform\craftsibcontactform;
+namespace wc4b\craftsibcontactform;
 
 use Craft;
-use wc4bcraftsibcontactform\craftsibcontactform\events\SignupEvent;
-use wc4bcraftsibcontactform\craftsibcontactform\models\Signup;
-use wc4bcraftsibcontactform\craftsibcontactform\Craftsibcontactform;
+use wc4b\craftsibcontactform\events\SignupEvent;
+use wc4b\craftsibcontactform\models\Signup;
+use wc4b\craftsibcontactform\Craftsibcontactform;
 
 use yii\base\Component;
 use yii\base\InvalidConfigException;

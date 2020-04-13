@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2020 Joel Beer
  */
 
-namespace wc4bcraftsibcontactform\craftsibcontactform\assetbundles\Craftsibcontactform;
+namespace wc4bm\assetbundles\Craftsibcontactform;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -43,7 +43,7 @@ class CraftsibcontactformAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@wc4bcraftsibcontactform/craftsibcontactform/assetbundles/craftsibcontactform/dist";
+        $this->sourcePath = "@wc4bm/assetbundles/craftsibcontactform/dist";
 
         // define the dependencies
         $this->depends = [
