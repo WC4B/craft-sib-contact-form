@@ -5,9 +5,9 @@
  * @license MIT
  */
 
-namespace wc4bm\events;
+namespace wc4b\sibcontactformintegration\events;
 
-use wc4bm\models\Submission;
+use wc4b\sibcontactformintegration\models\Submission;
 use craft\mail\Message;
 use yii\base\Event;
 
